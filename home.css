@@ -32,7 +32,7 @@ h3{
 
 .navbar ul{
     list-style-type: none;
-    font-size: 28px;
+    font-size: 26px;
     overflow:hidden;
 }
 
@@ -103,5 +103,5 @@ h3{
 }
 
 .project-image:hover{
-    transform: scale(1.04);
+    transform: scale(1.015);
 }

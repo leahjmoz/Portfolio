@@ -10,9 +10,19 @@ body{
     margin:0;
     background-color: #191717;
     overflow:hidden;
-    opacity: 0; /* Start invisible */
+    opacity: 0; 
     transition: opacity 0.7s ease-in-out;
 }
+
+/* body{
+    margin:0;
+    background-color: #191717;
+    width: 100vw;
+    background: url("../Portfolio-header-gif4.gif");
+    overflow:hidden;
+    opacity: 0; 
+    transition: opacity 0.7s ease-in-out;
+} */
 
 body.fade-in {
   opacity: 1;
