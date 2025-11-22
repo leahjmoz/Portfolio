@@ -1,0 +1,314 @@
+* {
+  box-sizing: border-box;
+}
+
+/* ::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+html {
+  -ms-overflow-style: none;
+} */
+
+.site-container{
+  width:665px;
+  margin-left: auto;
+  margin-right: auto;
+  display:block;
+}
+
+body {
+  margin-top: 70px;
+  margin-left: 300px;
+  margin-right: 300px;
+  padding-bottom: 80px;  
+}
+
+@font-face {
+  font-family: "Formula1-Regular";
+  src: url("Formula1-Regular.otf");
+}
+
+h2 {
+  font-family: "Formula1-Regular", sans-serif;
+  font-size: 22pt;
+  margin-bottom: 1.2em;
+  text-align:center;
+}
+
+p, h1 {
+  font-family: "titillium-web", sans-serif;
+  font-weight: 400;
+  font-size: 14pt;
+  font-style: normal;
+  line-height: 1.6;
+  text-align: left;
+  white-space: normal;
+  display: block;
+}
+
+h3, a {
+  font-family: "titillium-web", sans-serif;
+  font-weight: 400;
+  font-size: 11pt;
+  font-style: normal;
+  line-height: 1.6;
+  text-align: left;
+  white-space: normal;
+  display: block;
+}
+
+@font-face {
+  font-family: "Formula1-Regular";
+  src: url("Formula1-Regular.otf");
+}
+
+h1 {
+  font-family: "Formula1-Regular", sans-serif;
+  font-size: 12pt;
+  margin-bottom: 1.2em;
+}
+
+h4 {
+  font-family: "titillium-web", sans-serif;
+  font-weight: 400;
+  font-size: 14pt;
+  padding:2px;
+  margin:0;
+  font-style: normal;
+  text-align: center;
+  white-space: normal;
+  display: block;
+}
+
+/* Single blinking cursor */
+#cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: black;
+  vertical-align: bottom;
+  animation: blink 0.8s steps(1) infinite;
+  position: relative;
+  transform: translateY(-0.15em); /* lift cursor slightly */
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Strike animation */
+.strike {
+  display: inline-block;
+  position: relative;
+}
+
+.strike::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 2px;
+  width: 0;
+  background: black;
+  transition: width 0.5s ease-out;
+}
+
+.strike.struck::after {
+  width: 100%;
+}
+
+.skip-btn {
+  font-size: 13pt;
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-left: 10px;
+  color: black;
+  opacity: 0;              /* hidden at start */
+  pointer-events: none;    /* not clickable while hidden */
+  transition: opacity 0.6s ease, transform 0.2s;
+}
+
+.skip-btn.visible {
+  opacity: 1;              /* fade in */
+  pointer-events: auto;    /* become clickable */
+}
+
+.skip-btn:hover {
+  transform: scale(1.2);
+}
+
+.citations-button {
+  background: url('essay-images/spyker-sideview.png') no-repeat center center;
+  background-size: cover;
+  width: 160px;
+  height: 60px;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  top:55px;
+  left:2%;
+}
+
+.citations{
+  background: rgb(255, 255, 255);
+  color:black;
+  position:fixed;
+  top:0;
+  right:-21%;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:1px;
+  padding-right:10px;
+  width:21%;
+  height:100vh;
+  text-align:left;
+  font-size:90%;
+  line-height: 1.35;
+  text-decoration: none;
+  
+  transition:all .3s;
+  z-index:100;
+
+  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.citations a{
+  color:black;
+}
+
+.citations ul{
+  padding-left:3px;
+  list-style:none;
+}
+
+.citations p{
+  font-size:110%;
+  padding-top:20px;
+}
+
+.citations li {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.active1 {
+  right:0px;
+}
+
+.images-button {
+  background: url('essay-images/force-india-sideview.webp') no-repeat center center;
+  background-size: cover;
+  width: 160px;
+  height: 47px;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  top:163px;
+  left:2%;
+}
+
+.images{
+  background: rgb(255, 255, 255);
+  color:black;
+  position:fixed;
+  top:0;
+  right:-21%;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:1px;
+  padding-right:10px;
+  width:21%;
+  height:100vh;
+  text-align:left;
+  font-size:90%;
+  line-height: 1.35;
+  text-decoration: none;
+  
+  transition:all .3s;
+  z-index:100;
+
+  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.images ul{
+  padding-left:3px;
+  list-style:none;
+  font-size:150%;
+}
+
+.images li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.images img {
+  width: 70%;
+  height: auto;
+  display: block;
+}
+
+.active2 {
+  right:0px;
+}
+
+.colophon-button {
+  background: url('essay-images/alfa-romeo-sideview.png') no-repeat center center;
+  background-size: cover;
+  width: 175px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  top:260px;
+  left:2%;
+}
+
+.colophon{
+  background: rgb(255, 255, 255);
+  color:black;
+  position:fixed;
+  top:415px;
+  left:-20%;
+  padding-top:0px;
+  padding-left:30px;
+  width:20%;
+  height:150px;
+  text-align:left;
+  font-size:12px;
+  line-height: 1.35;
+  text-decoration: none;
+  
+  transition:all .3s;
+  z-index:100;
+}
+
+.active3 {
+  left:0;
+}
+
+.complete-button {
+  background: url('essay-images/sauber-car.avif') no-repeat center center;
+  background-size: cover;
+  width: 165px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  top:350px;
+  left:2.3%;
+}
