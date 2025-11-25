@@ -125,8 +125,8 @@ h3{
     font-family: "baskerville-urw", serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 20px;
+    line-height: 25px;
     text-align: left;
     margin-top:1px;
     margin-bottom:2%;
@@ -134,16 +134,16 @@ h3{
 
 @media (max-width: 1200px) {
     .top-paragraph {
-        font-size: 18px; /* smaller laptop */
-        line-height: 23px;
+        font-size: 20px; /* smaller laptop */
+        line-height: 25px;
         margin-bottom:2.5%;
     }
 }
 
 @media (max-width: 768px) {
     .top-paragraph {
-        font-size: 14px; /* mobile */
-        line-height: 18px;
+        font-size: 16px; /* mobile */
+        line-height: 19px;
         margin-bottom:2.5%;
     }
 }
