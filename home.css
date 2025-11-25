@@ -31,6 +31,22 @@ h3{
     font-style: normal;
 }
 
+.navbar{
+    margin-bottom:3.5%;
+}
+
+@media (max-width: 1200px) {
+    .navbar {
+        margin-bottom:0;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        margin-bottom:0;
+    }
+}
+
 .navbar ul{
     list-style-type: none;
     font-size: 26px;
@@ -63,12 +79,14 @@ h3{
 @media (max-width: 1200px) {
     .navbar a {
         padding-right:40px;
+        padding-left:0;
     }
 }
 
 @media (max-width: 768px) {
     .navbar a {
         padding-right:20px;
+        padding-left:0;
     }
 }
 
