@@ -1,0 +1,162 @@
+*{
+    box-sizing:border-box;
+}
+
+img{
+    max-width: 100%;
+}
+
+body{
+    margin:0;
+    background-color: #191717;
+    opacity: 0; 
+    transition: opacity 0.7s ease-in-out;
+}
+
+body.fade-in {
+  opacity: 1;
+}
+
+p{
+    color:#EFEFED;
+    font-family: "baskerville-urw", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    line-height: 22px;
+    text-align: center;
+}
+
+@media (max-width: 1200px) {
+    p{
+        font-size: 12px;
+        line-height: 18px;
+    }
+} 
+
+@media (max-width: 768px) {
+    p{
+        font-size: 10px;
+        line-height: 14px;
+    }
+} 
+
+h3{
+    color:#EFEFED;
+    font-size: 24px;
+    text-align: center;
+    font-style: normal;
+}
+
+
+.navbar{
+    margin-bottom:3.5%;
+    font-family: "baskerville-urw", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@media (max-width: 1200px) {
+    .navbar {
+        margin-bottom:0;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        margin-bottom:0;
+    }
+}
+
+.navbar ul{
+    list-style-type: none;
+    font-size: 26px;
+    overflow:hidden;
+}
+
+@media (max-width: 1200px) {
+    .navbar ul {
+        font-size: 20px; /* smaller laptop */
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar ul {
+        font-size: 16px; /* mobile */
+    }
+}
+
+.navbar a{
+    color:#EFEFED;
+    text-decoration: none;
+    margin-top:5px;
+    padding-right:60px;
+    padding-left:5px;
+    display:block;
+    text-align:left;
+    transition: transform .2s;
+} 
+
+@media (max-width: 1200px) {
+    .navbar a {
+        padding-right:40px;
+        padding-left:0;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar a {
+        padding-right:20px;
+        padding-left:0;
+    }
+}
+
+.navbar a:hover{
+    transform: scale(1.08);
+}
+
+.navbar li{
+    float:left;
+}
+
+
+.top-paragraph{
+    color:#EFEFED;
+    font-family: "baskerville-urw", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 23px;
+    text-align: left;
+    margin-top:1px;
+    margin-bottom:2%;
+}
+
+@media (max-width: 1200px) {
+    .top-paragraph {
+        font-size: 18px; /* smaller laptop */
+        line-height: 23px;
+        margin-bottom:2.5%;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-paragraph {
+        font-size: 14px; /* mobile */
+        line-height: 18px;
+        margin-bottom:2.5%;
+    }
+}
+
+.container-topimg{
+    background:#191717;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    
+    margin-left:6%;
+    margin-right:6%;
+    margin-bottom:3%;
+}
+
