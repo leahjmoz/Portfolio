@@ -19,10 +19,27 @@ body.fade-in {
 
 p{
     color:#EFEFED;
-    font-size: 14px;
+    font-family: "baskerville-urw", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
     line-height: 22px;
     text-align: center;
 }
+
+@media (max-width: 1200px) {
+    p{
+        font-size: 12px;
+        line-height: 18px;
+    }
+} 
+
+@media (max-width: 768px) {
+    p{
+        font-size: 10px;
+        line-height: 14px;
+    }
+} 
 
 h3{
     color:#EFEFED;
@@ -33,6 +50,9 @@ h3{
 
 .navbar{
     margin-bottom:3.5%;
+    font-family: "baskerville-urw", serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 @media (max-width: 1200px) {
