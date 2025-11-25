@@ -54,12 +54,27 @@ h3{
     }
 }
 
+.navbar{
+    margin-bottom:3.5%;
+}
+
+@media (max-width: 1200px) {
+    .navbar {
+        margin-bottom:0;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        margin-bottom:0;
+    }
+}
+
 .navbar ul{
     list-style-type: none;
     font-size: 26px;
     overflow:hidden;
 }
-
 
 @media (max-width: 1200px) {
     .navbar ul {
@@ -69,7 +84,7 @@ h3{
 
 @media (max-width: 768px) {
     .navbar ul {
-        font-size: 18px; /* mobile */
+        font-size: 16px; /* mobile */
     }
 }
 
@@ -83,6 +98,20 @@ h3{
     text-align:left;
     transition: transform .2s;
 } 
+
+@media (max-width: 1200px) {
+    .navbar a {
+        padding-right:40px;
+        padding-left:0;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar a {
+        padding-right:20px;
+        padding-left:0;
+    }
+}
 
 .navbar a:hover{
     transform: scale(1.08);
