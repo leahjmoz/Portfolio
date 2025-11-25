@@ -167,11 +167,11 @@ h3{
 
 @media (max-width: 768px) {
     .paragraph{
-        font-size: 13px;
-        line-height: 13px;
+        font-size: 16px;
+        line-height: 17px;
         margin-top:4%;
-        margin-left:20%;
-        margin-right:19%;
+        margin-left:10%;
+        margin-right:9%;
     }
 } 
 
@@ -183,6 +183,7 @@ h3{
 
 @media (max-width: 768px) {
     .photo{
+        max-width: 80%;
         margin-left:auto;
         margin-right:auto;
     }
@@ -201,12 +202,12 @@ h3{
 
 @media (max-width: 1200px) {
     .resume a{
-        font-size: 18px;
+        font-size: 20px;
     }
 } 
 
 @media (max-width: 768px) {
     .resume a{
-        font-size: 16px;
+        font-size: 18px;
     }
 } 
