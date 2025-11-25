@@ -63,6 +63,7 @@ h3{
 @media (max-width: 1200px) {
     .top-paragraph {
         font-size: 18px; /* smaller laptop */
+        line-height: 23px;
         margin-bottom:2.5%;
     }
 }
@@ -70,6 +71,7 @@ h3{
 @media (max-width: 768px) {
     .top-paragraph {
         font-size: 14px; /* mobile */
+        line-height: 18px;
         margin-bottom:2.5%;
     }
 }
