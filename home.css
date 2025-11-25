@@ -118,6 +118,18 @@ h3{
     float:left;
 }
 
+/* .big-container{
+    display:flex;
+    flex-direction: column;
+}
+
+@media (max-width: 1200px) {
+    .big-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}  */
+
 
 .container1{
     background:#191717;
@@ -140,7 +152,9 @@ h3{
 
 @media (max-width: 768px) {
     .container1{
-        margin-bottom:.5%;
+        margin-bottom:0;
+        padding:0;
+        flex-wrap: wrap;
     }
 } 
 
@@ -156,6 +170,16 @@ h3{
     
     justify-content:center;
     align-items:center;
+} 
+
+@media (max-width: 768px) {
+    .project-image{
+        width:90%;
+        height:auto;
+        padding-bottom:2%;
+        margin-left:5%;
+        margin-right:5%;
+    }
 } 
 
 .project-image img {
