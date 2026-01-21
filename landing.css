@@ -71,7 +71,7 @@ body.fade-in {
 
 @media (max-width: 768px) {
     .name {
-        font-size: 4vw;
+        font-size: 8vw;
     }
 } 
 
@@ -89,7 +89,7 @@ body.fade-in {
 
 @media (max-width: 768px) {
     .enter {
-        font-size: 3.5vw;
+        font-size: 6vw;
     }
 }
 
@@ -115,7 +115,7 @@ body.fade-in {
 
 @media (max-width: 768px) {
     .star {
-        font-size: 3.5vw;
+        font-size: 7vw;
     }
 }
 
@@ -152,7 +152,7 @@ body.fade-in {
 
 @media (max-width: 768px) {
     .star-top {
-        top: -20vw;
+        top: -25vw;
     }
 }
 
@@ -164,7 +164,7 @@ body.fade-in {
 
 @media (max-width: 768px) {
     .star-bottom {
-        bottom: -20vw;
+        bottom: -25vw;
     }
 }
 
@@ -176,7 +176,7 @@ body.fade-in {
 
 @media (max-width: 768px) {
     .star-left {
-        left: -18vw;
+        left: -22vw;
     }
 }
 
@@ -188,7 +188,7 @@ body.fade-in {
 
 @media (max-width: 768px) {
     .star-right {
-        right: -18vw;
+        right: -22vw;
     }
 }
 
