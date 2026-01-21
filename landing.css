@@ -28,10 +28,6 @@ body.fade-in {
     margin: 0;  
 }
 
-/* .name:hover{
-    transform: scale(1.05);
-} */
-
 .star {
     transition: transform 0.3s ease;
 }
@@ -104,14 +100,14 @@ body.fade-in {
 .star {
     position: absolute;
     /* color: #EFEFED; */
-    color: #3be2ff;
+    color: #fff83b;
     font-size: 1.8vw;
 }
 
 @media (max-width: 900px) {
     .star {
         font-size: 5vw;
-        color: #ff008c;
+        color: #b300ff;
     }
 }
 
