@@ -63,17 +63,17 @@ body.fade-in {
 }
 
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
     .name {
-        font-size: 2vw;
+        font-size: 4vw;
     }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .name {
         font-size: 10vw;
     }
-} 
+}  */
 
 .enter {
     font-size: 1.8vw;
@@ -81,17 +81,17 @@ body.fade-in {
     font-style:italic;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
     .enter {
-        font-size: 1.9vw;
+        font-size: 2.5vw;
     }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .enter {
         font-size: 8vw;
     }
-}
+} */
 
 
 .centerpiece {
@@ -108,19 +108,19 @@ body.fade-in {
     font-size: 1.8vw;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
     .star {
-        font-size: 2.5vw;
-        color: #2fff00;
+        font-size: 5vw;
+        color: #ff008c;
     }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .star {
         font-size: 10vw;
         color: #ff0000;
     }
-}
+} */
 
 .star-top {
     top: -12vw;
@@ -147,53 +147,53 @@ body.fade-in {
 }
 
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
     .star-top {
-        top: -17vw;
+        top: -25vw;
     }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .star-top {
         top: -32vw;
     }
-}
+} */
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
     .star-bottom {
-        bottom: -17vw;
+        bottom: -25vw;
     }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .star-bottom {
         bottom: -32vw;
     }
-}
+} */
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
     .star-left {
-        left: -16vw;
+        left: -23vw;
     }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .star-left {
         left: -25vw;
     }
-}
+} */
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
     .star-right {
-        right: -16vw;
+        right: -23vw;
     }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .star-right {
         right: -25vw;
     }
-}
+} */
 
 
 a{
