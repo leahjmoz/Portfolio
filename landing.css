@@ -1,4 +1,4 @@
-/* *{
+*{
     box-sizing:border-box;
 }
 
@@ -19,78 +19,179 @@ body.fade-in {
   opacity: 1;
 }
 
-img{
-    width:100vw;
-    margin:0;
-    margin-top:-4.1px;
-    padding:0;
-    
+.title {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    height: 100vh;           
+    width: 100vw;           
+    margin: 0;  
+}
+
+/* .name:hover{
+    transform: scale(1.05);
 } */
 
-* {
-    margin: 0;
-    padding: 0;
+.star {
+    transition: transform 0.3s ease;
 }
 
-.name {
-    position: fixed;
-    bottom: 0;   /* distance from bottom */
-    left: 4%;     /* distance from left */
-    z-index: 10;
+.centerpiece:hover .star {
+    transform: scale(1.1);
+}
+.centerpiece:hover .star-top {
+    transform: translateX(-50%) translateY(-0.5vw) scale(1.4);
 }
 
-.lastname {
-    color: #EFEFED;
-    /* background-color: blue; */
-    font-size: 17vw;
-    font-family: "baskerville", serif;
-    margin-top:-100px;
+.centerpiece:hover .star-bottom {
+    transform: translateX(-50%) translateY(0.5vw) scale(1.4);
 }
+
+.centerpiece:hover .star-left {
+    transform: translateY(-50%) translateX(-0.5vw) scale(1.4);
+}
+
+.centerpiece:hover .star-right {
+    transform: translateY(-50%) translateX(0.5vw) scale(1.4);
+}
+
+.name{
+    color:#EFEFED;
+    font-size: 1.9vw;
+    text-align: center;
+    font-style: normal;
+}
+
 
 @media (max-width: 1200px) {
-    .lastname {
-        margin-top:-70px;
-        font-size: 18vw;
+    .name {
+        font-size: 2vw;
     }
 }
 
 @media (max-width: 768px) {
-    .lastname {
-        margin-top:-30px;
-        font-size: 19vw;
+    .name {
+        font-size: 4vw;
     }
-}
+} 
 
-.firstname {
-    margin-bottom: .1%;
-    color: #EFEFED;
-    /* background-color: red; */
-    font-size: 17vw;
+.enter {
+    font-size: 1.8vw;
     font-family: "baskerville-urw", serif;
+    font-style:italic;
 }
 
 @media (max-width: 1200px) {
-    .firstname {
-        font-size: 18vw;
+    .enter {
+        font-size: 1.9vw;
     }
 }
 
 @media (max-width: 768px) {
-    .firstname {
-        font-size: 19vw;
+    .enter {
+        font-size: 3.5vw;
     }
 }
 
 
-.portfolio-link{
-    color: #EFEFED;
-    /* background-color: pink; */
-    font-size: 10vw;
-    font-family: "baskerville-urw", serif;
-    position: fixed;
-    bottom: 73%;  
-    left: 85%;     
+.centerpiece {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.star {
+    position: absolute;
+    color: #EFEFED;
+    font-size: 1.8vw;
+}
+
+@media (max-width: 1200px) {
+    .star {
+        font-size: 2.5vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .star {
+        font-size: 3.5vw;
+    }
+}
+
+.star-top {
+    top: -12vw;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.star-bottom {
+    bottom: -12vw;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.star-left {
+    left: -14vw;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.star-right {
+    right: -14vw;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+@media (max-width: 1200px) {
+    .star-top {
+        top: -17vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .star-top {
+        top: -20vw;
+    }
+}
+
+@media (max-width: 1200px) {
+    .star-bottom {
+        bottom: -17vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .star-bottom {
+        bottom: -20vw;
+    }
+}
+
+@media (max-width: 1200px) {
+    .star-left {
+        left: -16vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .star-left {
+        left: -18vw;
+    }
+}
+
+@media (max-width: 1200px) {
+    .star-right {
+        right: -16vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .star-right {
+        right: -18vw;
+    }
+}
+
 
 a{
     text-decoration: none;
@@ -98,52 +199,4 @@ a{
 }
 
 
-@media (max-width: 1200px) {
-    .portfolio-link {
-        font-size: 11vw;
-        bottom: 78%; 
-        left: 85%; 
-    }
-}
 
-@media (max-width: 768px) {
-    .portfolio-link {
-        font-size: 10vw;
-        bottom: 85%; 
-        left: 83%; 
-    }
-}
-
-
-
-@keyframes move-twink-back {
-    from {background-position:0 0;}
-    to {background-position:-10000px 5000px;}
-}
-
-@keyframes move-clouds-back {
-    from {background-position:0 0;}
-    to {background-position:10000px 0;}
-}
-
-.stars, .twinkling{
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  width:100%;
-  height:100%;
-  display:block;
-}
-
-.stars {
-  background:#000 url(stars.png) repeat top center;
-  z-index:0;
-}
-
-.twinkling{
-  background:transparent url(twinkling.png) repeat top center;
-  z-index:1;
-  animation:move-twink-back 300s linear infinite;
-}
