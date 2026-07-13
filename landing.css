@@ -61,7 +61,7 @@ body.fade-in {
 
 @media (max-width: 900px) {
     .name {
-        font-size: 11vw;
+        font-size: 5.5vw;
     }
 }
 
@@ -79,7 +79,7 @@ body.fade-in {
 
 @media (max-width: 900px) {
     .enter {
-        font-size: 9vw;
+        font-size: 5.3vw;
     }
 }
 
@@ -106,7 +106,7 @@ body.fade-in {
 
 @media (max-width: 900px) {
     .star {
-        font-size: 9vw;
+        font-size: 5vw;
         color: #b300ff;
     }
 }
