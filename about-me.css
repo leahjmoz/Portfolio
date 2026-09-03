@@ -145,14 +145,14 @@ h3{
     font-family: "baskerville-urw", serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 23px;
+    font-size: 20px;
     line-height: 24px;
     text-align: left;
     height:100%;
     display:flex;
     margin-top:2.5%;
-    margin-left:2.5%;
-    margin-right:6%;
+    margin-left:1.5%;
+    margin-right:2.5%;
 }
 
 @media (max-width: 1200px) {
