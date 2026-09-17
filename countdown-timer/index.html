@@ -17,7 +17,9 @@
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body {
-    margin: 0; padding: 0; height: 100%;
+    margin: 0; padding: 0;
+    height: 100vh;
+    height: 100dvh;
     background: radial-gradient(circle at 50% -10%, #262a52 0%, var(--bg) 60%);
     color: var(--text);
     font-family: 'Segoe UI Rounded', 'SF Pro Rounded', 'Trebuchet MS', system-ui, sans-serif;
@@ -25,20 +27,22 @@
     user-select: none;
   }
   #app {
-    height: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3vh 4vw;
+    padding: max(3vh, env(safe-area-inset-top)) 4vw max(3vh, env(safe-area-inset-bottom)) 4vw;
     gap: 3vh;
   }
 
   /* ---- circle ---- */
   #circleWrap {
     position: relative;
-    width: min(56vh, 70vw);
-    height: min(56vh, 70vw);
+    width: min(50vh, 68vw);
+    height: min(50vh, 68vw);
     flex-shrink: 0;
   }
   #circleBase, #circleFill {
@@ -94,7 +98,7 @@
     gap: 2vh;
     align-items: center;
   }
-  .row { display: flex; gap: 1.4vh; flex-wrap: wrap; justify-content: center; width: 100%; }
+  .row { display: flex; gap: 1.4vh; flex-wrap: wrap; justify-content: center; align-items: center; width: 100%; }
 
   .chip {
     background: var(--panel);
@@ -149,20 +153,51 @@
     max-width: 90vw;
   }
 
-  #customRow { align-items: center; }
-  #customInput {
-    width: 3.2em;
-    background: var(--panel);
-    border: none;
-    border-radius: 12px;
-    color: var(--text);
-    font-size: clamp(1rem, 2.2vh, 1.3rem);
-    text-align: center;
-    padding: 1.2vh 0.4em;
-    font-weight: 600;
+  #sliderWrap {
+    width: min(85vw, 480px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6vh;
   }
-  #customInput:focus { outline: 2px solid var(--accent); }
-  .unit-label { color: var(--muted); font-size: clamp(0.8rem, 1.8vh, 1rem); }
+  #sliderLabel {
+    font-size: clamp(1rem, 2.4vh, 1.4rem);
+    font-weight: 700;
+  }
+  #timeSlider {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: clamp(8px, 1.2vh, 12px);
+    border-radius: 999px;
+    background: var(--panel);
+    outline: none;
+  }
+  #timeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: clamp(28px, 4.2vh, 38px);
+    height: clamp(28px, 4.2vh, 38px);
+    border-radius: 50%;
+    background: var(--fill);
+    border: 3px solid var(--text);
+    cursor: pointer;
+  }
+  #timeSlider::-moz-range-thumb {
+    width: clamp(28px, 4.2vh, 38px);
+    height: clamp(28px, 4.2vh, 38px);
+    border-radius: 50%;
+    background: var(--fill);
+    border: 3px solid var(--text);
+    cursor: pointer;
+  }
+  #sliderTicks {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: clamp(0.6rem, 1.4vh, 0.8rem);
+    color: var(--muted);
+    padding: 0 2px;
+  }
 
   #wakeHint {
     position: absolute;
@@ -173,22 +208,10 @@
   }
 
   /* ---- color + numbers toggle ---- */
-  .swatch {
-    width: clamp(30px, 5.2vh, 42px);
-    height: clamp(30px, 5.2vh, 42px);
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.15);
-    cursor: pointer;
-    padding: 0;
-    transition: transform 0.12s ease, border-color 0.2s ease;
-  }
-  .swatch:active { transform: scale(0.9); }
-  .swatch.selected { border-color: var(--text); }
-
   #customColorWrap {
     position: relative;
-    width: clamp(30px, 5.2vh, 42px);
-    height: clamp(30px, 5.2vh, 42px);
+    width: clamp(44px, 7vh, 60px);
+    height: clamp(44px, 7vh, 60px);
   }
   #customColorInput {
     position: absolute; inset: 0;
@@ -199,8 +222,8 @@
     cursor: pointer;
     background: conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
   }
-  #customColorInput::-webkit-color-swatch-wrapper { padding: 0; border-radius: 50%; }
-  #customColorInput::-webkit-color-swatch { border: 2px solid rgba(255,255,255,0.15); border-radius: 50%; }
+  #customColorInput::-webkit-color-swatch-wrapper { padding: 2px; border-radius: 50%; }
+  #customColorInput::-webkit-color-swatch { border: 3px solid rgba(255,255,255,0.5); border-radius: 50%; }
 
   #numbersToggleBtn {
     display: flex; align-items: center; gap: 0.8vh;
@@ -218,13 +241,11 @@
   #app { transition: gap 0.3s ease; }
   #circleWrap { transition: width 0.35s ease, height 0.35s ease; }
   #app.minimal #circleWrap {
-    width: min(82vh, 92vw);
-    height: min(82vh, 92vw);
+    width: min(76vh, 90vw);
+    height: min(76vh, 90vw);
   }
-  #app.minimal #presetRow,
-  #app.minimal #customRow,
-  #app.minimal #colorRow,
-  #app.minimal #numbersRow {
+  #app.minimal #timeRow,
+  #app.minimal #colorNumbersRow {
     display: none;
   }
   #app.minimal #voiceFeedback {
@@ -237,6 +258,46 @@
 
   @media (prefers-reduced-motion: reduce) {
     #micBtn.listening { animation: none; }
+  }
+
+  /* ---- landscape layout ---- */
+  #app.layout-landscape {
+    flex-direction: row;
+    gap: 4vw;
+  }
+  #app.layout-landscape #controls {
+    width: auto;
+    max-width: 46vw;
+  }
+  #app.layout-landscape #sliderWrap {
+    width: min(38vw, 420px);
+  }
+  #app.layout-landscape #circleWrap {
+    width: min(62vh, 44vw);
+    height: min(62vh, 44vw);
+  }
+  #app.layout-landscape.minimal #circleWrap {
+    width: min(84vh, 52vw);
+    height: min(84vh, 52vw);
+  }
+
+  /* ---- orientation fallback toggle (only shown if auto-detection is unavailable) ---- */
+  #orientationToggleBtn {
+    position: fixed;
+    top: max(1.2vh, env(safe-area-inset-top));
+    left: max(1.2vh, env(safe-area-inset-left));
+    width: clamp(36px, 6vh, 46px);
+    height: clamp(36px, 6vh, 46px);
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: var(--text);
+    font-size: clamp(1rem, 2.4vh, 1.3rem);
+    cursor: pointer;
+    z-index: 20;
+    display: none;
+    align-items: center;
+    justify-content: center;
   }
 </style>
 </head>
@@ -254,20 +315,12 @@
   </div>
 
   <div id="controls">
-    <div class="row" id="presetRow">
-      <button class="chip" data-min="1">1 min</button>
-      <button class="chip" data-min="5">5 min</button>
-      <button class="chip" data-min="10">10 min</button>
-      <button class="chip" data-min="15">15 min</button>
-      <button class="chip" data-min="20">20 min</button>
-      <button class="chip" data-min="30">30 min</button>
-    </div>
-
-    <div class="row" id="customRow">
-      <span class="unit-label">Custom:</span>
-      <input type="number" id="customInput" min="0" placeholder="0" inputmode="numeric">
-      <span class="unit-label">min</span>
-      <button class="chip" id="setCustomBtn">Set</button>
+    <div class="row" id="timeRow">
+      <div id="sliderWrap">
+        <div id="sliderLabel">5 min</div>
+        <input type="range" id="timeSlider" min="0" max="8" step="1" value="4" aria-label="Timer duration in minutes">
+        <div id="sliderTicks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>10</span><span>15</span><span>20</span><span>30</span></div>
+      </div>
     </div>
 
     <div class="row primary-row">
@@ -276,19 +329,18 @@
       <button class="btn-round" id="micBtn" title="Toggle voice control" aria-label="Turn on voice control">&#127908;</button>
     </div>
 
-    <div class="row" id="colorRow">
-      <button class="swatch" data-color="#ff6f5e" style="background:#ff6f5e" title="Coral" aria-label="Coral"></button>
-      <button class="swatch" data-color="#ffb703" style="background:#ffb703" title="Amber" aria-label="Amber"></button>
-      <button class="swatch" data-color="#4fd1a5" style="background:#4fd1a5" title="Teal" aria-label="Teal"></button>
-      <button class="swatch" data-color="#4c9aff" style="background:#4c9aff" title="Blue" aria-label="Blue"></button>
-      <button class="swatch" data-color="#9b6bff" style="background:#9b6bff" title="Purple" aria-label="Purple"></button>
-      <button class="swatch" data-color="#ff6bb0" style="background:#ff6bb0" title="Pink" aria-label="Pink"></button>
-      <div id="customColorWrap">
-        <input type="color" id="customColorInput" value="#ff6f5e" title="Custom color" aria-label="Custom color">
+    <div class="row" id="colorNumbersRow">
+      <div id="customColorWrap" title="Choose color" aria-label="Choose color">
+        <input type="color" id="customColorInput" value="#ff6f5e" list="colorPresets">
       </div>
-    </div>
-
-    <div class="row" id="numbersRow">
+      <datalist id="colorPresets">
+        <option value="#ff6f5e"></option>
+        <option value="#ffb703"></option>
+        <option value="#4fd1a5"></option>
+        <option value="#4c9aff"></option>
+        <option value="#9b6bff"></option>
+        <option value="#ff6bb0"></option>
+      </datalist>
       <button class="chip" id="numbersToggleBtn"><span class="dot"></span><span id="numbersToggleLabel">Numbers: On</span></button>
     </div>
 
@@ -296,6 +348,7 @@
   </div>
 
   <div id="wakeHint"></div>
+  <button id="orientationToggleBtn" title="Toggle layout orientation" aria-label="Switch to landscape layout">&#8646;</button>
 </div>
 
 <script>
@@ -307,16 +360,16 @@
   const resetBtn = document.getElementById('resetBtn');
   const micBtn = document.getElementById('micBtn');
   const voiceFeedback = document.getElementById('voiceFeedback');
-  const customInput = document.getElementById('customInput');
-  const setCustomBtn = document.getElementById('setCustomBtn');
-  const presetRow = document.getElementById('presetRow');
+  const timeSlider = document.getElementById('timeSlider');
+  const sliderLabel = document.getElementById('sliderLabel');
   const wakeHint = document.getElementById('wakeHint');
-  const colorRow = document.getElementById('colorRow');
   const customColorInput = document.getElementById('customColorInput');
   const numbersToggleBtn = document.getElementById('numbersToggleBtn');
   const numbersToggleLabel = document.getElementById('numbersToggleLabel');
   const centerLabel = document.getElementById('centerLabel');
   const circleBase = document.getElementById('circleBase');
+
+  const TIME_OPTIONS = [1, 2, 3, 4, 5, 10, 15, 20, 30];
 
   const appRoot = document.getElementById('app');
   let totalSeconds = 5 * 60;
@@ -369,9 +422,6 @@
   function setFillColor(hex) {
     document.documentElement.style.setProperty('--fill', hex);
     customColorInput.value = hex;
-    document.querySelectorAll('.swatch').forEach(sw => {
-      sw.classList.toggle('selected', sw.dataset.color.toLowerCase() === hex.toLowerCase());
-    });
   }
 
   function setNumbersVisible(visible) {
@@ -408,10 +458,6 @@
     startPauseBtn.innerHTML = running ? '&#10074;&#10074;' : '&#9654;';
     startPauseBtn.classList.toggle('running', running);
     startPauseBtn.setAttribute('aria-label', running ? 'Pause' : 'Start');
-
-    document.querySelectorAll('#presetRow .chip').forEach(btn => {
-      btn.classList.toggle('selected', Number(btn.dataset.min) * 60 === totalSeconds);
-    });
   }
 
   function tick(ts) {
@@ -459,10 +505,22 @@
     render();
   }
 
+  function syncSliderToDuration() {
+    const currentMinutes = totalSeconds / 60;
+    let idx = 0, bestDiff = Infinity;
+    TIME_OPTIONS.forEach((m, i) => {
+      const diff = Math.abs(m - currentMinutes);
+      if (diff < bestDiff) { bestDiff = diff; idx = i; }
+    });
+    timeSlider.value = idx;
+    sliderLabel.textContent = TIME_OPTIONS[idx] + ' min';
+  }
+
   function setDuration(minutes) {
     pause();
     totalSeconds = Math.max(1, Math.round(minutes * 60));
     remainingSeconds = totalSeconds;
+    syncSliderToDuration();
     render();
   }
 
@@ -489,31 +547,16 @@
   }
 
   // ---- controls wiring ----
-  presetRow.addEventListener('click', (e) => {
-    const btn = e.target.closest('.chip');
-    if (!btn) return;
-    setDuration(Number(btn.dataset.min));
-  });
-
-  setCustomBtn.addEventListener('click', () => {
-    const v = parseFloat(customInput.value);
-    if (!isNaN(v) && v > 0) {
-      setDuration(v);
-      customInput.value = '';
-    }
-  });
-  customInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') setCustomBtn.click();
+  timeSlider.addEventListener('input', () => {
+    const idx = Number(timeSlider.value);
+    const minutes = TIME_OPTIONS[idx];
+    sliderLabel.textContent = minutes + ' min';
+    setDuration(minutes);
   });
 
   startPauseBtn.addEventListener('click', toggleStartPause);
   resetBtn.addEventListener('click', reset);
 
-  colorRow.addEventListener('click', (e) => {
-    const sw = e.target.closest('.swatch');
-    if (!sw) return;
-    setFillColor(sw.dataset.color);
-  });
   customColorInput.addEventListener('input', (e) => setFillColor(e.target.value));
 
   numbersToggleBtn.addEventListener('click', () => setNumbersVisible(!numbersVisible));
@@ -689,8 +732,42 @@
     voiceFeedback.textContent = 'Voice control needs Chrome. Use the buttons above instead.';
   }
 
+  const orientationToggleBtn = document.getElementById('orientationToggleBtn');
+
+  const orientationMQ = window.matchMedia ? window.matchMedia('(orientation: landscape)') : null;
+  let manualOrientation = null; // null = auto (from matchMedia); 'landscape' | 'portrait' = forced
+
+  function applyLayout() {
+    let isLandscape;
+    if (manualOrientation) {
+      isLandscape = manualOrientation === 'landscape';
+    } else if (orientationMQ) {
+      isLandscape = orientationMQ.matches;
+    } else {
+      isLandscape = window.innerWidth > window.innerHeight;
+    }
+    appRoot.classList.toggle('layout-landscape', isLandscape);
+  }
+
+  if (orientationMQ) {
+    // Browser can detect orientation — switch automatically, no manual toggle needed.
+    orientationMQ.addEventListener('change', () => { if (!manualOrientation) applyLayout(); });
+  } else {
+    // No orientation detection available — show a manual fallback toggle.
+    orientationToggleBtn.style.display = 'flex';
+    manualOrientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+    orientationToggleBtn.addEventListener('click', () => {
+      manualOrientation = manualOrientation === 'landscape' ? 'portrait' : 'landscape';
+      orientationToggleBtn.setAttribute('aria-label', manualOrientation === 'landscape' ? 'Switch to portrait layout' : 'Switch to landscape layout');
+      applyLayout();
+    });
+  }
+  window.addEventListener('resize', () => { if (!orientationMQ) applyLayout(); });
+  applyLayout();
+
   setFillColor('#ff6f5e');
   setNumbersVisible(true);
+  syncSliderToDuration();
   render();
 })();
 </script>
