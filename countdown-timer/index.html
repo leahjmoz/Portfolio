@@ -14,6 +14,7 @@
     --muted: #8b8fc2;
     --good: #4fd1a5;
     --bad: #ff6f5e;
+    --overtime: #e8283e;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body {
@@ -45,7 +46,7 @@
     height: min(50vh, 68vw);
     flex-shrink: 0;
   }
-  #circleBase, #circleFill {
+  #circleBase, #circleFill, #circleOvertime {
     position: absolute;
     inset: 0;
     border-radius: 50%;
@@ -57,6 +58,10 @@
   }
   #circleFill {
     background: conic-gradient(from 0deg, #ffffff 0%, #ffffff 0%, transparent 0%, transparent 100%);
+  }
+  #circleOvertime {
+    background: conic-gradient(from 0deg, var(--overtime) 0deg, var(--overtime) 0deg, transparent 0deg, transparent 360deg);
+    pointer-events: none;
   }
   #ringOutline {
     position: absolute; inset: -10px;
@@ -225,14 +230,120 @@
   #customColorInput::-webkit-color-swatch-wrapper { padding: 2px; border-radius: 50%; }
   #customColorInput::-webkit-color-swatch { border: 3px solid rgba(255,255,255,0.5); border-radius: 50%; }
 
-  #numbersToggleBtn {
+  #numbersToggleBtn, #autostartToggleBtn {
     display: flex; align-items: center; gap: 0.8vh;
   }
-  #numbersToggleBtn .dot {
+  #numbersToggleBtn .dot, #autostartToggleBtn .dot {
     width: 0.6em; height: 0.6em; border-radius: 50%;
     background: var(--good);
   }
-  #numbersToggleBtn.off .dot { background: var(--muted); }
+  #numbersToggleBtn.off .dot, #autostartToggleBtn.off .dot { background: var(--muted); }
+
+  #colorNumbersRow { justify-content: space-between; }
+  #leftToggleColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2vh;
+  }
+
+  /* ---- autostart modal ---- */
+  #autostartModalOverlay {
+    position: fixed; inset: 0;
+    background: rgba(8, 9, 20, 0.72);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 4vh 4vw;
+  }
+  #autostartModalOverlay.open { display: flex; }
+  #autostartModal {
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 3vh 5vw;
+    width: min(92vw, 420px);
+    max-height: 88vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  #autostartModal h2 {
+    margin: 0 0 2vh 0;
+    font-size: clamp(1.2rem, 3vh, 1.6rem);
+  }
+  .as-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.6vh 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: clamp(0.95rem, 2.2vh, 1.15rem);
+    gap: 1.2vh;
+  }
+  .as-row:first-of-type { border-top: none; }
+  #asTimeWrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5vh;
+  }
+  #asHourInput, #asMinuteInput {
+    background: var(--bg);
+    border: none;
+    border-radius: 10px;
+    color: var(--text);
+    padding: 1vh 0.4vh;
+    font-size: clamp(1rem, 2.4vh, 1.3rem);
+    font-weight: 700;
+    text-align: center;
+    width: 2.2em;
+    font-variant-numeric: tabular-nums;
+  }
+  #asHourInput:focus, #asMinuteInput:focus { outline: 2px solid var(--accent); }
+  .as-time-colon { font-weight: 700; font-size: clamp(1rem, 2.4vh, 1.3rem); }
+  #asAmPmBtn { padding: 1vh 2.2vw; margin-left: 0.4vh; }
+  .switch {
+    width: 52px; height: 30px;
+    border-radius: 999px;
+    border: none;
+    background: var(--muted);
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+  }
+  .switch.on { background: var(--good); }
+  .switch-knob {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.2s ease;
+  }
+  .switch.on .switch-knob { transform: translateX(22px); }
+  .as-days-row { flex-direction: column; align-items: stretch; gap: 1vh; }
+  #asDays {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8vh;
+    width: 100%;
+  }
+  .as-day {
+    flex: 1;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg);
+    color: var(--muted);
+    font-weight: 700;
+    font-size: clamp(0.8rem, 1.8vh, 1rem);
+    cursor: pointer;
+  }
+  .as-day.on { background: var(--fill); color: #fff; }
+  .as-actions { border-top: none; padding-top: 2.4vh; gap: 1.6vh; justify-content: flex-end; }
+  .as-actions .chip { padding: 1.2vh 3.2vw; }
+  #asSaveBtn { background: var(--good); color: #0c2a20; }
 
   #centerLabel { transition: opacity 0.25s ease; }
   #centerLabel.numbers-off { opacity: 0; pointer-events: none; }
@@ -307,6 +418,7 @@
   <div id="circleWrap">
     <div id="circleBase"></div>
     <div id="circleFill"></div>
+    <div id="circleOvertime"></div>
     <div id="ringOutline"></div>
     <div id="centerLabel">
       <div id="timeDisplay">05:00</div>
@@ -330,6 +442,10 @@
     </div>
 
     <div class="row" id="colorNumbersRow">
+      <div id="leftToggleColumn">
+        <button class="chip" id="autostartToggleBtn"><span class="dot"></span><span id="autostartToggleLabel">Autostart: Off</span></button>
+        <button class="chip" id="numbersToggleBtn"><span class="dot"></span><span id="numbersToggleLabel">Numbers: On</span></button>
+      </div>
       <div id="customColorWrap" title="Choose color" aria-label="Choose color">
         <input type="color" id="customColorInput" value="#ff6f5e" list="colorPresets">
       </div>
@@ -341,7 +457,6 @@
         <option value="#9b6bff"></option>
         <option value="#ff6bb0"></option>
       </datalist>
-      <button class="chip" id="numbersToggleBtn"><span class="dot"></span><span id="numbersToggleLabel">Numbers: On</span></button>
     </div>
 
     <div id="voiceFeedback">Tap the mic once to turn on voice control, then just speak — "set timer for 10 minutes", "start", "hide numbers", "change color to blue"</div>
@@ -349,11 +464,47 @@
 
   <div id="wakeHint"></div>
   <button id="orientationToggleBtn" title="Toggle layout orientation" aria-label="Switch to landscape layout">&#8646;</button>
+
+  <div id="autostartModalOverlay">
+    <div id="autostartModal">
+      <h2>Autostart</h2>
+      <div class="as-row">
+        <span>Enabled</span>
+        <button id="asEnabledSwitch" class="switch" role="switch" aria-checked="false" aria-label="Enable autostart"><span class="switch-knob"></span></button>
+      </div>
+      <div class="as-row">
+        <span>Start time</span>
+        <div id="asTimeWrap">
+          <input type="text" id="asHourInput" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="07" aria-label="Hour">
+          <span class="as-time-colon">:</span>
+          <input type="text" id="asMinuteInput" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="00" aria-label="Minute">
+          <button type="button" id="asAmPmBtn" class="chip" data-value="AM">AM</button>
+        </div>
+      </div>
+      <div class="as-row as-days-row">
+        <span>Repeat on</span>
+        <div id="asDays">
+          <button class="as-day" data-day="0">S</button>
+          <button class="as-day" data-day="1">M</button>
+          <button class="as-day" data-day="2">T</button>
+          <button class="as-day" data-day="3">W</button>
+          <button class="as-day" data-day="4">T</button>
+          <button class="as-day" data-day="5">F</button>
+          <button class="as-day" data-day="6">S</button>
+        </div>
+      </div>
+      <div class="as-row as-actions">
+        <button class="chip" id="asCancelBtn">Cancel</button>
+        <button class="chip" id="asSaveBtn">Save</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
 (function() {
   const circleFill = document.getElementById('circleFill');
+  const circleOvertime = document.getElementById('circleOvertime');
   const timeDisplay = document.getElementById('timeDisplay');
   const statusLabel = document.getElementById('statusLabel');
   const startPauseBtn = document.getElementById('startPauseBtn');
@@ -368,6 +519,16 @@
   const numbersToggleLabel = document.getElementById('numbersToggleLabel');
   const centerLabel = document.getElementById('centerLabel');
   const circleBase = document.getElementById('circleBase');
+  const autostartToggleBtn = document.getElementById('autostartToggleBtn');
+  const autostartToggleLabel = document.getElementById('autostartToggleLabel');
+  const autostartModalOverlay = document.getElementById('autostartModalOverlay');
+  const asEnabledSwitch = document.getElementById('asEnabledSwitch');
+  const asHourInput = document.getElementById('asHourInput');
+  const asMinuteInput = document.getElementById('asMinuteInput');
+  const asAmPmBtn = document.getElementById('asAmPmBtn');
+  const asDays = document.getElementById('asDays');
+  const asCancelBtn = document.getElementById('asCancelBtn');
+  const asSaveBtn = document.getElementById('asSaveBtn');
 
   const TIME_OPTIONS = [1, 2, 3, 4, 5, 10, 15, 20, 30];
 
@@ -379,6 +540,104 @@
   let lastTick = null;
   let numbersVisible = true;
   let hasStarted = false;
+  let inOvertime = false;
+  let overtimeSeconds = 0;
+  const MAX_OVERTIME = 3600; // 1 hour
+
+  // ---- autostart (daily alarm, no sound, just starts the timer) ----
+  const AUTOSTART_KEY = 'wallTimerAutostart';
+  let autostart = { enabled: false, time: '07:00', days: [1, 2, 3, 4, 5] }; // Mon-Fri default
+  let autostartLastTriggeredDate = null; // 'YYYY-MM-DD' to avoid re-firing within the same day
+
+  function loadAutostart() {
+    try {
+      const raw = localStorage.getItem(AUTOSTART_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          autostart = {
+            enabled: !!parsed.enabled,
+            time: typeof parsed.time === 'string' ? parsed.time : '07:00',
+            days: Array.isArray(parsed.days) ? parsed.days.filter(d => d >= 0 && d <= 6) : [1, 2, 3, 4, 5]
+          };
+        }
+      }
+    } catch (e) { /* localStorage unavailable; fall back to default in-memory settings */ }
+  }
+
+  function saveAutostart() {
+    try { localStorage.setItem(AUTOSTART_KEY, JSON.stringify(autostart)); } catch (e) {}
+  }
+
+  function dayAbbrev(list) {
+    const labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const sorted = [...list].sort();
+    if (sorted.length === 7) return 'daily';
+    if (sorted.join(',') === '1,2,3,4,5') return 'weekdays';
+    if (sorted.join(',') === '0,6') return 'weekends';
+    return sorted.map(d => labels[d]).join(' ');
+  }
+
+  function formatTimeLabel(hhmm) {
+    const [h, m] = hhmm.split(':').map(Number);
+    const period = h >= 12 ? 'PM' : 'AM';
+    const h12 = ((h + 11) % 12) + 1;
+    return h12 + ':' + String(m).padStart(2, '0') + ' ' + period;
+  }
+
+  function to24h(hour12, minute, ampm) {
+    let h = hour12 % 12;
+    if (ampm === 'PM') h += 12;
+    return String(h).padStart(2, '0') + ':' + String(minute).padStart(2, '0');
+  }
+
+  function from24h(hhmm) {
+    const [h, m] = hhmm.split(':').map(Number);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const h12 = ((h + 11) % 12) + 1;
+    return { h12, m, ampm };
+  }
+
+  function renderAutostartButton() {
+    autostartToggleBtn.classList.toggle('off', !autostart.enabled);
+    autostartToggleLabel.textContent = autostart.enabled
+      ? `Autostart: ${formatTimeLabel(autostart.time)} ${dayAbbrev(autostart.days)}`
+      : 'Autostart: Off';
+  }
+
+  function openAutostartModal() {
+    asEnabledSwitch.classList.toggle('on', autostart.enabled);
+    asEnabledSwitch.setAttribute('aria-checked', String(autostart.enabled));
+    const { h12, m, ampm } = from24h(autostart.time);
+    asHourInput.value = String(h12);
+    asMinuteInput.value = String(m).padStart(2, '0');
+    asAmPmBtn.textContent = ampm;
+    asAmPmBtn.dataset.value = ampm;
+    document.querySelectorAll('.as-day').forEach(btn => {
+      btn.classList.toggle('on', autostart.days.includes(Number(btn.dataset.day)));
+    });
+    autostartModalOverlay.classList.add('open');
+  }
+
+  function closeAutostartModal() {
+    autostartModalOverlay.classList.remove('open');
+  }
+
+  function checkAutostart() {
+    if (!autostart.enabled) return;
+    if (running) return; // don't interrupt an active countdown or overtime
+    const now = new Date();
+    const todayKey = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+    if (autostartLastTriggeredDate === todayKey) return;
+    if (!autostart.days.includes(now.getDay())) return;
+    const hhmm = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+    if (hhmm !== autostart.time) return;
+    autostartLastTriggeredDate = todayKey;
+    remainingSeconds = totalSeconds;
+    inOvertime = false;
+    overtimeSeconds = 0;
+    start();
+  }
 
   function requestFS() {
     const el = document.documentElement;
@@ -439,25 +698,35 @@
   }
 
   function render() {
-    timeDisplay.textContent = formatTime(remainingSeconds);
     const pct = totalSeconds > 0 ? Math.min(1, (totalSeconds - remainingSeconds) / totalSeconds) : 0;
     const deg = pct * 360;
     circleFill.style.background =
       `conic-gradient(from 0deg, #ffffff 0deg, #ffffff ${deg}deg, transparent ${deg}deg, transparent 360deg)`;
 
-    if (remainingSeconds <= 0) {
-      statusLabel.textContent = 'Time\'s up';
-    } else if (running) {
-      statusLabel.textContent = 'Running';
-    } else if (remainingSeconds < totalSeconds) {
-      statusLabel.textContent = 'Paused';
+    const otPct = Math.min(1, overtimeSeconds / MAX_OVERTIME);
+    const otDeg = otPct * 360;
+    circleOvertime.style.background =
+      `conic-gradient(from 0deg, var(--overtime) 0deg, var(--overtime) ${otDeg}deg, transparent ${otDeg}deg, transparent 360deg)`;
+
+    if (inOvertime) {
+      timeDisplay.textContent = '+' + formatTime(overtimeSeconds);
+      statusLabel.textContent = overtimeSeconds >= MAX_OVERTIME ? 'Overtime complete' : (running ? 'Overtime' : 'Overtime (paused)');
     } else {
-      statusLabel.textContent = 'Ready';
+      timeDisplay.textContent = formatTime(remainingSeconds);
+      if (running) {
+        statusLabel.textContent = 'Running';
+      } else if (remainingSeconds < totalSeconds) {
+        statusLabel.textContent = 'Paused';
+      } else {
+        statusLabel.textContent = 'Ready';
+      }
     }
 
     startPauseBtn.innerHTML = running ? '&#10074;&#10074;' : '&#9654;';
     startPauseBtn.classList.toggle('running', running);
     startPauseBtn.setAttribute('aria-label', running ? 'Pause' : 'Start');
+    startPauseBtn.disabled = inOvertime && overtimeSeconds >= MAX_OVERTIME;
+    startPauseBtn.style.opacity = startPauseBtn.disabled ? '0.5' : '1';
   }
 
   function tick(ts) {
@@ -465,21 +734,38 @@
     if (lastTick == null) lastTick = ts;
     const dt = (ts - lastTick) / 1000;
     lastTick = ts;
-    remainingSeconds -= dt;
-    if (remainingSeconds <= 0) {
-      remainingSeconds = 0;
-      running = false;
+
+    if (!inOvertime) {
+      remainingSeconds -= dt;
+      if (remainingSeconds <= 0) {
+        remainingSeconds = 0;
+        inOvertime = true;
+        overtimeSeconds = 0;
+        render();
+        onFinish();
+        tickHandle = requestAnimationFrame(tick);
+        return;
+      }
       render();
-      onFinish();
-      return;
+      tickHandle = requestAnimationFrame(tick);
+    } else {
+      overtimeSeconds += dt;
+      if (overtimeSeconds >= MAX_OVERTIME) {
+        overtimeSeconds = MAX_OVERTIME;
+        running = false;
+        render();
+        onFinish();
+        return;
+      }
+      render();
+      tickHandle = requestAnimationFrame(tick);
     }
-    render();
-    tickHandle = requestAnimationFrame(tick);
   }
 
   function start() {
-    if (remainingSeconds <= 0) return;
     if (running) return;
+    if (inOvertime && overtimeSeconds >= MAX_OVERTIME) return;
+    if (!inOvertime && remainingSeconds <= 0) return;
     running = true;
     lastTick = null;
     enterMinimal();
@@ -501,6 +787,8 @@
   function reset() {
     pause();
     remainingSeconds = totalSeconds;
+    inOvertime = false;
+    overtimeSeconds = 0;
     exitMinimal();
     render();
   }
@@ -520,13 +808,14 @@
     pause();
     totalSeconds = Math.max(1, Math.round(minutes * 60));
     remainingSeconds = totalSeconds;
+    inOvertime = false;
+    overtimeSeconds = 0;
     syncSliderToDuration();
     render();
   }
 
   let dingCtx = null;
   function onFinish() {
-    statusLabel.textContent = "Time's up";
     try {
       dingCtx = dingCtx || new (window.AudioContext || window.webkitAudioContext)();
       const now = dingCtx.currentTime;
@@ -560,6 +849,66 @@
   customColorInput.addEventListener('input', (e) => setFillColor(e.target.value));
 
   numbersToggleBtn.addEventListener('click', () => setNumbersVisible(!numbersVisible));
+
+  autostartToggleBtn.addEventListener('click', openAutostartModal);
+  asEnabledSwitch.addEventListener('click', () => {
+    const next = !asEnabledSwitch.classList.contains('on');
+    asEnabledSwitch.classList.toggle('on', next);
+    asEnabledSwitch.setAttribute('aria-checked', String(next));
+  });
+  asDays.addEventListener('click', (e) => {
+    const btn = e.target.closest('.as-day');
+    if (!btn) return;
+    btn.classList.toggle('on');
+  });
+  // numeric-only input + auto-advance from hour to minute
+  asHourInput.addEventListener('input', () => {
+    asHourInput.value = asHourInput.value.replace(/\D/g, '').slice(0, 2);
+    if (asHourInput.value.length === 2) asMinuteInput.focus();
+  });
+  asMinuteInput.addEventListener('input', () => {
+    asMinuteInput.value = asMinuteInput.value.replace(/\D/g, '').slice(0, 2);
+  });
+  asHourInput.addEventListener('blur', () => {
+    let h = parseInt(asHourInput.value, 10);
+    if (isNaN(h) || h < 1) h = 12;
+    if (h > 12) h = 12;
+    asHourInput.value = String(h);
+  });
+  asMinuteInput.addEventListener('blur', () => {
+    let m = parseInt(asMinuteInput.value, 10);
+    if (isNaN(m) || m < 0) m = 0;
+    if (m > 59) m = 59;
+    asMinuteInput.value = String(m).padStart(2, '0');
+  });
+  asAmPmBtn.addEventListener('click', () => {
+    const next = asAmPmBtn.dataset.value === 'AM' ? 'PM' : 'AM';
+    asAmPmBtn.dataset.value = next;
+    asAmPmBtn.textContent = next;
+  });
+
+  asCancelBtn.addEventListener('click', closeAutostartModal);
+  asSaveBtn.addEventListener('click', () => {
+    const selectedDays = Array.from(document.querySelectorAll('.as-day.on')).map(b => Number(b.dataset.day));
+    let h = parseInt(asHourInput.value, 10);
+    if (isNaN(h) || h < 1 || h > 12) h = 7;
+    let m = parseInt(asMinuteInput.value, 10);
+    if (isNaN(m) || m < 0 || m > 59) m = 0;
+    autostart = {
+      enabled: asEnabledSwitch.classList.contains('on'),
+      time: to24h(h, m, asAmPmBtn.dataset.value || 'AM'),
+      days: selectedDays.length ? selectedDays : [1, 2, 3, 4, 5]
+    };
+    autostartLastTriggeredDate = null;
+    saveAutostart();
+    renderAutostartButton();
+    closeAutostartModal();
+  });
+  autostartModalOverlay.addEventListener('click', (e) => {
+    if (e.target === autostartModalOverlay) closeAutostartModal();
+  });
+
+  setInterval(checkAutostart, 15000);
 
   // ---- wake lock (keep screen on while mounted) ----
   let wakeLock = null;
@@ -607,10 +956,19 @@
       const value = parseFloat(addMatch[1]);
       const unit = addMatch[2];
       const addSeconds = unit.startsWith('min') ? value * 60 : value;
-      totalSeconds += addSeconds;
-      remainingSeconds += addSeconds;
+      if (inOvertime) {
+        inOvertime = false;
+        overtimeSeconds = 0;
+        totalSeconds = addSeconds;
+        remainingSeconds = addSeconds;
+        syncSliderToDuration();
+        voiceFeedback.textContent = `Starting a fresh ${addMatch[1]} ${unit} countdown`;
+      } else {
+        totalSeconds += addSeconds;
+        remainingSeconds += addSeconds;
+        voiceFeedback.textContent = `Added ${addMatch[1]} ${unit}`;
+      }
       render();
-      voiceFeedback.textContent = `Added ${addMatch[1]} ${unit}`;
       return;
     }
 
@@ -768,6 +1126,8 @@
   setFillColor('#ff6f5e');
   setNumbersVisible(true);
   syncSliderToDuration();
+  loadAutostart();
+  renderAutostartButton();
   render();
 })();
 </script>
