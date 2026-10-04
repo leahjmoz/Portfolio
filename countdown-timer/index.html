@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Countdown Timer</title>
+<title>Countdown</title>
 <style>
   :root {
     --bg: #171a2e;
@@ -837,6 +837,7 @@
 
   function reset() {
     pause();
+    stopAlarmSound();
     remainingSeconds = totalSeconds;
     inOvertime = false;
     overtimeSeconds = 0;
@@ -885,6 +886,8 @@
     return bytes.buffer;
   }
 
+  let activeAlarmSources = [];
+
   async function onFinish() {
     try {
       alarmCtx = alarmCtx || new (window.AudioContext || window.webkitAudioContext)();
@@ -899,9 +902,21 @@
         source.buffer = alarmBuffer;
         source.connect(alarmCtx.destination);
         source.start(now + delay);
+        activeAlarmSources.push(source);
+        source.onended = () => {
+          activeAlarmSources = activeAlarmSources.filter(s => s !== source);
+        };
       });
     } catch (e) { /* audio not available */ }
     if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
+  }
+
+  function stopAlarmSound() {
+    activeAlarmSources.forEach(source => {
+      try { source.stop(); } catch (e) { /* already stopped/ended */ }
+    });
+    activeAlarmSources = [];
+    if (navigator.vibrate) navigator.vibrate(0); // cancel any ongoing vibration pattern
   }
 
   // ---- controls wiring ----
@@ -1085,6 +1100,22 @@
         voiceFeedback.textContent = `Added ${addMatch[1]} ${unit}`;
       }
       render();
+      return;
+    }
+
+    // "stop timer" — silences the alarm (if sounding) and fully stops/resets, any time after
+    // the alarm has triggered (also works as a general full stop+reset at any other time).
+    if (/\bstop\s*(the\s*)?timer\b/.test(t)) {
+      stopAlarmSound();
+      reset();
+      voiceFeedback.textContent = 'Timer stopped';
+      return;
+    }
+
+    // "quiet" — silences the alarm sound only, leaving the red overtime count running.
+    if (/\bquiet\b/.test(t)) {
+      stopAlarmSound();
+      voiceFeedback.textContent = 'Alarm silenced';
       return;
     }
 
